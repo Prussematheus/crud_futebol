@@ -6,7 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nome = $_POST["nome"];
     $email = $_POST["jogadores"];
 
-    $sql = "INSERT INTO jogadores (nome, posicao, numero_camisa, time_id) VALUES";
+    $sql = "INSERT INTO times(nome, cidade) VALUES";
     $res = mysqli_query($conn, $sql);
     if ($res) {
         echo "Jogador cadastrado com sucesso!";
@@ -17,8 +17,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <form method="POST">
     Nome: <input type="text" name="nome"><br>
-    posicao: <input type="text" name="posicao"><br>
-    numero_camisa: <input type="number" name="numero_camisa"><br>
-    time_id: <input type="number" name="time_id"><br>
-    <input type="submit" value="Cadastrar">
+    Cidade: <input type="text" name="cidade"><br>
 </form>

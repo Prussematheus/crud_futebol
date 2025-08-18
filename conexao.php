@@ -1,11 +1,11 @@
 <?php
-// Conexão com o banco (contém erro de variável e de conexão)
+
 $host = "localhost";
 $user = "root";
 $password = "root";
-$db = "futebol_db"; // Erro: db ao invés de crud_futebol
+$db = "futebol_db"; 
 
-$conn = mysqli_connect ($host, $user, $password, $db); // Erro: $hot ao invés de $host
+$conn = mysqli_connect ($host, $user, $password, $db); 
 
 if (!$conn) {
     echo "Falha na conexão!";
