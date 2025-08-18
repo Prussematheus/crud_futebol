@@ -17,6 +17,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <form method="POST">
     Nome: <input type="text" name="nome"><br>
-    Email: <input type="email" name="email"><br>
+    posicao: <input type="text" name="posicao"><br>
+    numero_camisa: <input type="number" name="numero_camisa"><br>
+    time_id: <input type="number" name="time_id"><br>
     <input type="submit" value="Cadastrar">
 </form>
