@@ -4,9 +4,9 @@ include("conexao.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nome = $_POST["nome"];
-    $email = $_POST["email"];
+    $email = $_POST["jogadores"];
 
-    $sql = "INSERT INTO usuarios (nome, email) VALUES ('$nome', '$email')";
+    $sql = "INSERT INTO jogadores (nome, posicao, numero_camisa, time_id) VALUES";
     $res = mysqli_query($conn, $sql);
     if ($res) {
         echo "Usuário cadastrado com sucesso!";

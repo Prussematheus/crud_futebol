@@ -3,7 +3,7 @@
 $host = "localhost";
 $user = "root";
 $password = "root";
-$db = "crud_exemplo";
+$db = "futebol_db"; // Erro: db ao invés de crud_futebol
 
 $conn = mysqli_connect ($host, $user, $password, $db); // Erro: $hot ao invés de $host
 
