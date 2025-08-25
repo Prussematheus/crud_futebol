@@ -9,7 +9,7 @@ if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
 $id = intval($_GET["id"]);
 
 // Busca segura do usuário
-$sql = "SELECT * FROM usuarios WHERE id = ?";
+$sql = "SELECT * FROM times WHERE id = ?";
 $stmt = mysqli_prepare($conn, $sql);
 mysqli_stmt_bind_param($stmt, "i", $id);
 mysqli_stmt_execute($stmt);
@@ -17,17 +17,17 @@ $res = mysqli_stmt_get_result($stmt);
 $dado = mysqli_fetch_assoc($res);
 
 if (!$dado) {
-    die("Usuário não encontrado.");
+    die("Time não encontrado.");
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nome = $_POST["nome"];
-    $email = $_POST["email"];
+    $cidade = $_POST["cidade"];
 
     // Atualização segura
-    $sql = "UPDATE usuarios SET nome=?, email=? WHERE id=?";
+    $sql = "UPDATE jogadores SET nome = ?, cidade = ?, WHERE id = ?";
     $stmt = mysqli_prepare($conn, $sql);
-    mysqli_stmt_bind_param($stmt, "ssi", $nome, $email, $id);
+    mysqli_stmt_bind_param($stmt, "ssi", $nome, $cidade ,$id);
     mysqli_stmt_execute($stmt);
 
     header("Location: index.php");
@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <form method="POST">
-    Nome: <input type="text" name="nome" value="<?= htmlspecialchars($dado['nome']) ?>"><br>
-    Email: <input type="email" name="email" value="<?= htmlspecialchars($dado['email']) ?>"><br>
+    Nome: <input type="text" name="nome" value="<?php echo htmlspecialchars($dado['nome']); ?>"><br>
+    Cidade: <input type="text" name="cidade" value="<?php echo htmlspecialchars($dado['cidade']); ?>"><br>
     <input type="submit" value="Salvar">
 </form>

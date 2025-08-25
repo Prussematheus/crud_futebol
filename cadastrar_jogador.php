@@ -4,7 +4,16 @@ include("conexao.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nome = $_POST["nome"];
-    $email = $_POST["jogadores"];
+    $posicao = $_POST["posicao"];
+    $numero_camisa = $_POST["numero_camisa"];
+    $time_id = $_POST["time_id"];
+
+    if($numero_camisa< 1 || $numero_camisa > 99){
+        echo "<script>
+        alert('Número da camisa deve estar entre 1 e 99.')
+        window.location.href = 'cadastrar_jogador.php';
+        </script>";
+    }else{
 
     $sql = "INSERT INTO jogadores (nome, posicao, numero_camisa, time_id) VALUES";
     $res = mysqli_query($conn, $sql);
@@ -12,6 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Jogador cadastrado com sucesso!";
     }else
         echo "Erro ao cadastrar!";
+}
 }
 ?>
 
