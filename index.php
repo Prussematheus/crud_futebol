@@ -13,6 +13,8 @@ while ($linha = mysqli_fetch_array($resultado)) {
     echo "<a href='excluir_time.php?id=" . $linha['id'] . "'>Excluir</a><br><br>";
     echo"<br><br>";
 }
+echo "<a href='cadastrar_time.php'>Cadastrar novo time</a><br><br>";
+
 
 $sql = "SELECT * FROM jogadores";
 $resultado = mysqli_query($conn, $sql);
@@ -29,6 +31,7 @@ while ($linha = mysqli_fetch_array($resultado)) {
     echo "<a href='excluir_jogador.php?id=" . $linha['id'] . "'>Excluir</a><br><br>";
     echo "<br><br>";
 }
+echo "<a href='cadastrar_jogador.php'>Cadastrar novo jogador</a><br><br>";
 
 
 $sql = "SELECT * FROM partidas";
@@ -46,4 +49,5 @@ while ($linha = mysqli_fetch_array($resultado)) {
     echo "<a href='excluir_partida.php?id=" . $linha['id'] . "'>Excluir</a><br><br>";
     echo "<br><br>";
 }
+echo "<a href='cadastrar_partida.php'>Cadastrar nova partida</a><br><br>";
 ?>
