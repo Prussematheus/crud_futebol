@@ -27,9 +27,11 @@ while ($linha = mysqli_fetch_array($resultado)) {
 echo "<a href='cadastrar_time.php'>Cadastrar novo time</a><br><br>";
 echo'</section>';
 
-
+echo '<section id="jogadores">';
 $sql = "SELECT * FROM jogadores";
 $resultado = mysqli_query($conn, $sql);
+
+
 
 echo "<h1>Lista de Jogadores</h1>";
 
@@ -44,10 +46,13 @@ while ($linha = mysqli_fetch_array($resultado)) {
     echo "<br><br>";
 }
 echo "<a href='cadastrar_jogador.php'>Cadastrar novo jogador</a><br><br>";
+echo'</section>';
 
-
+echo '<section id="partidas">';
 $sql = "SELECT * FROM partidas";
 $resultado = mysqli_query($conn, $sql);
+
+
 
 echo "<h1>Lista de Partidas</h1>";
 
@@ -62,4 +67,5 @@ while ($linha = mysqli_fetch_array($resultado)) {
     echo "<br><br>";
 }
 echo "<a href='cadastrar_partida.php'>Cadastrar nova partida</a><br><br>";
+echo'</section>';
 ?>
