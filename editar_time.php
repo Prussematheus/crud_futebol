@@ -8,7 +8,7 @@ if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
 }
 $id = intval($_GET["id"]);
 
-// Busca segura do usuário
+
 $sql = "SELECT * FROM times WHERE id = ?";
 $stmt = mysqli_prepare($conn, $sql);
 mysqli_stmt_bind_param($stmt, "i", $id);
@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $cidade = $_POST["cidade"];
 
     // Atualização segura
-    $sql = "UPDATE jogadores SET nome = ?, cidade = ?, WHERE id = ?";
+    $sql = "UPDATE times SET nome = ?, cidade = ? WHERE id = ?";
     $stmt = mysqli_prepare($conn, $sql);
     mysqli_stmt_bind_param($stmt, "ssi", $nome, $cidade ,$id);
     mysqli_stmt_execute($stmt);

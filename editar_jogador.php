@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Atualização segura
     $sql = "UPDATE jogadores SET nome = ?, posicao = ?, numero_camisa = ?, time_id = ? WHERE id = ?";
     $stmt = mysqli_prepare($conn, $sql);
-    mysqli_stmt_bind_param($stmt, "ssi", $nome, $posicao, $numero_camisa, $time_id, $id);
+    mysqli_stmt_bind_param($stmt, "ssiii", $nome, $posicao, $numero_camisa, $time_id, $id);
     mysqli_stmt_execute($stmt);
 
     header("Location: index.php");

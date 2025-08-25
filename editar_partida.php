@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $gols_casa = $_POST["gols_casa"];
     $gols_fora = $_POST["gols_fora"];
 
-      if("time_casa_id" === "time_fora_id"){
+      if($time_casa_id === $time_fora_id){
             echo "<script>
         alert('Um time não pode jogar contra ele mesmo.')
         window.location.href = 'editar_partida.php';
@@ -37,9 +37,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }else{
 
     // Atualização segura
-    $sql = "UPDATE jogadores SET time_casa_id = ?, time_fora_id = ?, data_jogo = ?, gols_casa = ?, gols_fora = ?  WHERE id = ?";
+    $sql = "UPDATE partidas SET time_casa_id = ?, time_fora_id = ?, data_jogo = ?, gols_casa = ?, gols_fora = ?  WHERE id = ?";
     $stmt = mysqli_prepare($conn, $sql);
-    mysqli_stmt_bind_param($stmt, "ssi", $time_casa_id, $time_fora_id, $data_jogo, $gols_casa, $gols_fora, $id);
+    mysqli_stmt_bind_param($stmt, "iissii", $time_casa_id, $time_fora_id, $data_jogo, $gols_casa, $gols_fora, $id);
     mysqli_stmt_execute($stmt);
 
     header("Location: index.php");
