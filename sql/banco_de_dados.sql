@@ -1,6 +1,14 @@
 CREATE DATABASE futebol_db;
 USE futebol_db;
 
+create table usuarios(
+id int auto_increment primary key,
+username varchar(120) not null unique,
+senha varchar (255) not null
+);
+
+insert into usuarios(username, senha) values ('admin', '123');
+
 CREATE TABLE times (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,

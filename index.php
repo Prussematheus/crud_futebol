@@ -1,71 +1,67 @@
-<html lang="en">
+<? 
+include "conexao.php";
+session_start();
+
+// 2) Logout
+if (isset($_GET['logout'])) {
+    session_destroy();
+    header("Location: login.php");
+    exit;
+}
+
+// 3) Login
+$msg = "";
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $user = $_POST["username"] ?? "";
+    $pass = $_POST["password"] ?? "";
+
+    $stmt = $mysqli->prepare("SELECT id, username, senha FROM usuarios WHERE username=? AND senha=?");
+    $stmt->bind_param("ss", $user, $pass);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $dados = $result->fetch_assoc();
+    $stmt->close();
+
+    if ($dados) {
+        $_SESSION["user_id"] = $dados["id"];
+        $_SESSION["username"] = $dados["username"];
+        header("Location: login.php");
+        exit;
+    } else {
+        $msg = "Usuário ou senha incorretos!";
+    }
+}
+?>
+
+<!doctype html>
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
-    <title>Document</title>
+<meta charset="utf-8">
+<title>Login Simples</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+
+<?php if (!empty($_SESSION["user_id"])): ?>
+  <div class="card">
+    <h3>Bem-vindo, <?= $_SESSION["username"] ?>!</h3>
+    <h2><a href="dashboard.php">Gerenciar Times</a></h2>
+    <p>Sessão ativa.</p>
+    <p><a href="?logout=1">Sair</a></p>
+  </div>
+
+<?php else: ?>
+  <div class="card">
+    <h3>Login</h3>
+    <?php if ($msg=""): ?><p class="msg"><?= $msg ?></p><?php endif; ?>
+    <form method="post">
+      <input type="text" name="username" placeholder="Usuário" required>
+      <input type="password" name="password" placeholder="Senha" required>
+      <button type="submit">Entrar</button>
+    </form>
+    <p><small>Dica: admin / 123</small></p>
+  </div>
+<?php endif; ?>
+
 </body>
-</html>
-<?php
-include("conexao.php");
-echo '<section id="times">';
-$sql = "SELECT * FROM times"; 
-$resultado = mysqli_query($conn, $sql);
-
-echo "<h1>Lista de Times</h1>";
-
-while ($linha = mysqli_fetch_array($resultado)) {
-    echo "ID: " . $linha['id'] . "<br>";
-    echo "Nome: " . $linha['nome'] . "<br>";
-    echo "<a href='editar_time.php?id=" . $linha['id'] . "'>Editar</a> | ";
-    echo "<a href='excluir_time.php?id=" . $linha['id'] . "'>Excluir</a><br><br>";
-    echo"<br><br>";
-}
-echo "<a href='cadastrar_time.php'>Cadastrar novo time</a><br><br>";
-echo'</section>';
-
-echo '<section id="jogadores">';
-$sql = "SELECT * FROM jogadores";
-$resultado = mysqli_query($conn, $sql);
-
-
-
-echo "<h1>Lista de Jogadores</h1>";
-
-while ($linha = mysqli_fetch_array($resultado)) {
-    echo "ID: " . $linha['id'] . "<br>";
-    echo "Nome: " . $linha['nome'] . "<br>";
-    echo "Posição: " . $linha['posicao'] . "<br>";
-    echo "Número da Camisa: " . $linha['numero_camisa'] . "<br>";
-    echo "Time ID: " . $linha['time_id'] . "<br>";
-    echo "<a href='editar_jogador.php?id=" . $linha['id'] . "'>Editar</a> | ";
-    echo "<a href='excluir_jogador.php?id=" . $linha['id'] . "'>Excluir</a><br><br>";
-    echo "<br><br>";
-}
-echo "<a href='cadastrar_jogador.php'>Cadastrar novo jogador</a><br><br>";
-echo'</section>';
-
-echo '<section id="partidas">';
-$sql = "SELECT * FROM partidas";
-$resultado = mysqli_query($conn, $sql);
-
-
-
-echo "<h1>Lista de Partidas</h1>";
-
-while ($linha = mysqli_fetch_array($resultado)) {
-    echo "ID: " . $linha['id'] . "<br>";
-    echo "Time 1 ID: " . $linha['time_casa_id'] . "<br>";
-    echo "Time 2 ID: " . $linha['time_fora_id'] . "<br>";
-    echo "Data: " . $linha['data_jogo'] . "<br>";
-    echo "Placar: " . $linha['gols_casa'] . " x " . $linha['gols_fora'] . "<br>";
-    echo "<a href='editar_partida.php?id=" . $linha['id'] . "'>Editar</a> | ";
-    echo "<a href='excluir_partida.php?id=" . $linha['id'] . "'>Excluir</a><br><br>";
-    echo "<br><br>";
-}
-echo "<a href='cadastrar_partida.php'>Cadastrar nova partida</a><br><br>";
-echo'</section>';
-?>
+</html
